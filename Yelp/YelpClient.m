@@ -33,7 +33,9 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 
 - (instancetype)init {
     NSURL *baseURL = [NSURL URLWithString:@"https://api.yelp.com/v2/"];
-    if (self = [super initWithBaseURL:baseURL consumerKey:kYelpConsumerKey consumerSecret:kYelpConsumerSecret]) {
+    if (self = [super initWithBaseURL:baseURL
+                          consumerKey:kYelpConsumerKey
+                       consumerSecret:kYelpConsumerSecret]) {
         
         BDBOAuth1Credential *token = [BDBOAuth1Credential credentialWithToken:kYelpToken
                                                                        secret:kYelpTokenSecret
