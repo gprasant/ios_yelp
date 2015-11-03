@@ -66,7 +66,21 @@
 #pragma mark - filter delegate Methods
 
 -(void) filtersViewController:(FiltersViewController *)fvc didChangeFilters:(NSDictionary *)filters {
-    NSLog(@"Fire network event");
+    NSString *categoryFilterString = filters[@"category_filter"];
+    NSArray *categoryFilterArray = [categoryFilterString componentsSeparatedByString:@","];
+    
+    [YelpBusiness searchWithTerm:@"Restaurants"
+                        sortMode: YelpSortModeBestMatched
+                      categories: categoryFilterArray
+                           deals:NO
+                      completion:^(NSArray *businesses, NSError *error) {
+                          self.businesses = businesses;
+                          [self.tableView reloadData];
+                          for (YelpBusiness *business in businesses) {
+                              NSLog(@"%@", business);
+                          }
+                      }];
+    NSLog(@"Fire network event %@", filters);
 }
 
 #pragma mark - Private methods

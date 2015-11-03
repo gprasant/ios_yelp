@@ -71,6 +71,19 @@
     return cell;
 }
 
+-(NSDictionary *) filters {
+    NSMutableDictionary *filters = [NSMutableDictionary dictionary];
+    if (self.selectedCategories.count > 0) {
+        NSMutableArray *names = [NSMutableArray array];
+        for (NSDictionary *category in self.selectedCategories) {
+            [names addObject:category[@"code"]];
+        }
+        NSString *categoryFilter = [names componentsJoinedByString:@","];
+        [filters setObject:categoryFilter forKey:@"category_filter"];
+    }
+    return filters;
+}
+
 #pragma mark - Switch Cell delegate methods
 
 -(void) switchCell:(SwitchCell *)cell didUpdateValue:(BOOL)value {
