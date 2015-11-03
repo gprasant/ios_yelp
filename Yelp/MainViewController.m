@@ -44,6 +44,11 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"BusinessCell" bundle:nil]forCellReuseIdentifier:@"BusinessCell"];
     self.tableView.estimatedRowHeight = 100;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
+    
+#pragma - Search 
+    UISearchBar *searchBar = [[UISearchBar alloc] init];
+    [searchBar sizeToFit];
+    self.navigationItem.titleView = searchBar;
 }
 
 - (void)didReceiveMemoryWarning {
