@@ -25,6 +25,9 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.nameLabel.preferredMaxLayoutWidth = self.nameLabel.frame.size.width;
+    self.thumbImageView.layer.cornerRadius = 33;
+    self.thumbImageView.clipsToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -44,6 +47,11 @@
     self.ratingsLabel.text = [NSString stringWithFormat:@"%@ Reviews", [self.business.reviewCount stringValue]];
     self.addressLabel.text = self.business.address;
     self.categoriesLabel.text = self.business.categories;
+}
+
+- (void) layoutSubViews {
+    [super layoutSubviews];
+    self.nameLabel.preferredMaxLayoutWidth = self.nameLabel.frame.size.width;
 }
 
 @end

@@ -9,8 +9,9 @@
 #import "MainViewController.h"
 #import "YelpBusiness.h"
 #import "Businesscell.h"
+#import "FiltersViewController.h"
 
-@interface MainViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface MainViewController ()<UITableViewDataSource, UITableViewDelegate, FiltersViewControllerDelegate>
 
 @property (nonatomic, strong) NSArray *businesses;
 
@@ -34,7 +35,14 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Filters"
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:self
+                                                                            action:@selector(onFiltersTapped)];
+    self.title = @"Yelp";
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"BusinessCell" bundle:nil]forCellReuseIdentifier:@"BusinessCell"];
+    self.tableView.estimatedRowHeight = 100;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 }
 
@@ -53,6 +61,24 @@
     cell.business = self.businesses[indexPath.row];
     
     return cell;
+}
+
+#pragma mark - filter delegate Methods
+
+-(void) filtersViewController:(FiltersViewController *)fvc didChangeFilters:(NSDictionary *)filters {
+    NSLog(@"Fire network event");
+}
+
+#pragma mark - Private methods
+
+-(void) onFiltersTapped {
+    FiltersViewController *vc = [[FiltersViewController alloc] init];
+    vc.delegate = self;
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+    
+    [self presentViewController:nvc
+                       animated:YES
+                     completion:nil];
 }
 
 @end
